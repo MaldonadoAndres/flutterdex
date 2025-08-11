@@ -44,8 +44,26 @@ class PokemonStatsEntity extends Equatable {
     required this.specialDefense,
   });
 
+  factory PokemonStatsEntity.empty() {
+    return const PokemonStatsEntity(
+      hp: 0,
+      attack: 0,
+      defense: 0,
+      speed: 0,
+      specialAttack: 0,
+      specialDefense: 0,
+    );
+  }
+
   @override
-  List<Object?> get props => [hp, attack, defense, speed, specialAttack, specialDefense];
+  List<Object?> get props => [
+    hp,
+    attack,
+    defense,
+    speed,
+    specialAttack,
+    specialDefense,
+  ];
 }
 
 enum PokemonType {
@@ -67,4 +85,16 @@ enum PokemonType {
   dark,
   steel,
   fairy,
+  unknown;
+
+  static List<PokemonType> fromJsonList(List<dynamic> json) {
+    return json.map((e) => PokemonType.fromJson(e)).toList();
+  }
+
+  factory PokemonType.fromJson(Map<String, dynamic> json) {
+    return PokemonType.values.firstWhere(
+      (e) => e.name == json['type']['name'],
+      orElse: () => PokemonType.unknown,
+    );
+  }
 }

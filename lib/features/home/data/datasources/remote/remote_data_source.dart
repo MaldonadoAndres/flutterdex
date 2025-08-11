@@ -1,3 +1,5 @@
+import 'package:pokedex/features/home/data/models/pokemon_info_model.dart';
+
 abstract interface class RemoteDataSource {
-  Future<void> getPokemons({int offset = 0});
+  Future<List<PokemonInfoModel>> getPokemons({int offset = 0});
 }

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:pokedex/features/home/data/models/pokemon_info_model.dart';
 import 'package:pokedex/features/home/data/models/pokemon_list_response.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -9,5 +10,12 @@ abstract class PokeApi {
   factory PokeApi(Dio dioClient) = _PokeApi;
 
   @GET('pokemon')
-  Future<PokemonListResponse> getPokemons({@Query('limit') int limit = 10, @Query('offset') int offset = 0});
+  Future<PokemonListResponse> getPokemons({
+    @Query('limit') int limit = 10,
+    @Query('offset') int offset = 0,
+  });
+  @GET('pokemon/{pokemonName}')
+  Future<PokemonInfoModel> getPokemonsByName({
+    @Path('pokemonName') required String name,
+  });
 }

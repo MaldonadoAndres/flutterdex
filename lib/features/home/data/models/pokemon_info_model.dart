@@ -1,0 +1,98 @@
+import 'package:json_annotation/json_annotation.dart';
+import 'package:pokedex/features/home/domain/entities/pokemon_info_entity.dart';
+
+part 'pokemon_info_model.g.dart';
+
+@JsonSerializable(explicitToJson: true)
+class PokemonInfoModel {
+  final int? id;
+  final int? height;
+  final int? weight;
+  final String? name;
+  final PokemonSpritesModel? sprites;
+  @JsonKey(fromJson: PokemonStatsModel.fromJson)
+  final PokemonStatsModel? stats;
+  @JsonKey(fromJson: PokemonType.fromJsonList)
+  final List<PokemonType>? types;
+
+  PokemonInfoModel({
+    required this.id,
+    required this.height,
+    required this.weight,
+    required this.name,
+    required this.sprites,
+    required this.stats,
+    required this.types,
+  });
+  factory PokemonInfoModel.fromJson(Map<String, dynamic> json) =>
+      _$PokemonInfoModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PokemonInfoModelToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
+class PokemonSpritesModel {
+  final String? backDefault;
+  final String? backFemale;
+  final String? backShiny;
+  final String? backShinyFemale;
+  final String? frontDefault;
+  final String? frontFemale;
+  final String? frontShiny;
+  final String? frontShinyFemale;
+
+  PokemonSpritesModel({
+    this.backDefault,
+    this.backFemale,
+    this.backShiny,
+    this.backShinyFemale,
+    this.frontDefault,
+    this.frontFemale,
+    this.frontShiny,
+    this.frontShinyFemale,
+  });
+
+  factory PokemonSpritesModel.fromJson(Map<String, dynamic> json) =>
+      _$PokemonSpritesModelFromJson(json);
+  Map<String, dynamic> toJson() => _$PokemonSpritesModelToJson(this);
+}
+
+@JsonSerializable(createFactory: false)
+class PokemonStatsModel {
+  final int? hp;
+  final int? attack;
+  final int? defense;
+  final int? speed;
+  final int? specialAttack;
+  final int? specialDefense;
+
+  PokemonStatsModel({
+    required this.hp,
+    required this.attack,
+    required this.defense,
+    required this.speed,
+    required this.specialAttack,
+    required this.specialDefense,
+  });
+  Map<String, dynamic> toJson() => _$PokemonStatsModelToJson(this);
+
+  factory PokemonStatsModel.fromJson(List<dynamic> json) {
+    final statMap = <String, int?>{};
+    for (final stat in json) {
+      final statName = stat['stat']['name'] as String?;
+      final baseStat = stat['base_stat'] as int?;
+      if (statName != null) {
+        statMap[statName] = baseStat;
+      }
+    }
+
+    return PokemonStatsModel(
+      hp: statMap['hp'] ?? -1,
+      attack: statMap['attack'] ?? -1,
+      defense: statMap['defense'] ?? -1,
+      speed: statMap['speed'] ?? -1,
+      specialAttack: statMap['special-attack'] ?? -1,
+      specialDefense: statMap['special-defense'] ?? -1,
+    );
+  }
+}

@@ -19,7 +19,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) async {
     emit(HomeLoading());
-    await _getPokemonUseCase();
-    emit(HomeLoaded([]));
+    final result = await _getPokemonUseCase();
+    result.fold(
+      (failure) => emit(HomeError(failure.message)),
+      (pokemons) => emit(HomeLoaded(pokemons)),
+    );
   }
 }

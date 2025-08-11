@@ -48,7 +48,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i236.IPokemonRepository>(
       () => _i749.PokemonRepository(
         remoteDataSource: gh<_i623.RemoteDataSource>(),
-        localDataSource: gh<_i519.LocalDataSource>(),
       ),
     );
     gh.lazySingleton<_i683.GetPokemonUseCase>(

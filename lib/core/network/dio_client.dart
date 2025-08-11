@@ -16,7 +16,7 @@ Dio createDio() {
       request: true,
       requestHeader: true,
       responseHeader: true,
-      responseBody: true,
+      responseBody: false,
       error: true,
       compact: true,
     ),
