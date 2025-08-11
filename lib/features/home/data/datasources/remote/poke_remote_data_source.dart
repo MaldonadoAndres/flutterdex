@@ -1,6 +1,8 @@
+import 'package:injectable/injectable.dart';
 import 'package:pokedex/core/network/poke_api.dart';
 import 'package:pokedex/features/home/data/datasources/remote/remote_data_source.dart';
 
+@LazySingleton(as: RemoteDataSource)
 class PokeRemoteDataSource implements RemoteDataSource {
   final PokeApi _pokeApi;
 

@@ -1,4 +1,6 @@
-class PokemonInfoEntity {
+import 'package:equatable/equatable.dart';
+
+class PokemonInfoEntity extends Equatable {
   final int id;
   final int height;
   final int weight;
@@ -9,7 +11,7 @@ class PokemonInfoEntity {
   final PokemonStatsEntity baseStats;
   final List<PokemonType> types;
 
-  PokemonInfoEntity({
+  const PokemonInfoEntity({
     required this.id,
     required this.height,
     required this.weight,
@@ -20,9 +22,12 @@ class PokemonInfoEntity {
     required this.baseStats,
     required this.types,
   });
+
+  @override
+  List<Object?> get props => [id];
 }
 
-class PokemonStatsEntity {
+class PokemonStatsEntity extends Equatable {
   final int hp;
   final int attack;
   final int defense;
@@ -30,7 +35,7 @@ class PokemonStatsEntity {
   final int specialAttack;
   final int specialDefense;
 
-  PokemonStatsEntity({
+  const PokemonStatsEntity({
     required this.hp,
     required this.attack,
     required this.defense,
@@ -38,6 +43,9 @@ class PokemonStatsEntity {
     required this.specialAttack,
     required this.specialDefense,
   });
+
+  @override
+  List<Object?> get props => [hp, attack, defense, speed, specialAttack, specialDefense];
 }
 
 enum PokemonType {

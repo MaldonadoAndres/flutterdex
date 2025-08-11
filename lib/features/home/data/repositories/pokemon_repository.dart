@@ -1,8 +1,10 @@
+import 'package:injectable/injectable.dart';
 import 'package:pokedex/features/home/data/datasources/local/local_data_source.dart';
 import 'package:pokedex/features/home/data/datasources/remote/remote_data_source.dart';
 import 'package:pokedex/features/home/domain/entities/pokemon_info_entity.dart';
 import 'package:pokedex/features/home/domain/repositories/i_pokemon_repository.dart';
 
+@LazySingleton(as: IPokemonRepository)
 class PokemonRepository implements IPokemonRepository {
   final RemoteDataSource _remoteDataSource;
   final LocalDataSource _localDataSource;

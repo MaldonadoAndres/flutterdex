@@ -11,7 +11,7 @@ Dio createDio() {
   );
 
   dio.interceptors.addAll([
-    LogInterceptor(requestBody: true, responseBody: true),
+    // LogInterceptor(requestBody: true, responseBody: true),
     PrettyDioLogger(
       request: true,
       requestHeader: true,
