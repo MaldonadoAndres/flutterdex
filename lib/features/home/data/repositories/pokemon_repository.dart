@@ -25,7 +25,10 @@ class PokemonRepository implements IPokemonRepository {
   }) async {
     try {
       final localPokemon = await _getLocalPokemon();
-      if (localPokemon.isNotEmpty) {
+
+      /// If localPokemon is not empty and offset is less than localPokemon length, return localPokemon
+      ///  If offset is greater than or equal to localPokemon length, fetch from remote
+      if (localPokemon.isNotEmpty && offset < localPokemon.length) {
         return Right(localPokemon);
       }
       final pokemons = await _remoteDataSource.getPokemons(offset: offset);

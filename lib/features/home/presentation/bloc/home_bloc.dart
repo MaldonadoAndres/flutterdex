@@ -11,6 +11,7 @@ part 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc(this._getPokemonUseCase) : super(HomeInitial()) {
     on<HomeLoadPokemons>(_getPokemons);
+    on<HomeLoadMorePokemons>(_getMorePokemons);
   }
   final GetPokemonUseCase _getPokemonUseCase;
 
@@ -19,10 +20,24 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) async {
     emit(HomeLoading());
+
     final result = await _getPokemonUseCase();
     result.fold(
       (failure) => emit(HomeError(failure.message)),
       (pokemons) => emit(HomeLoaded(pokemons)),
+    );
+  }
+
+  Future<void> _getMorePokemons(
+    HomeLoadMorePokemons event,
+    Emitter<HomeState> emit,
+  ) async {
+    if (state is! HomeLoaded) return;
+    final currentState = state as HomeLoaded;
+    final result = await _getPokemonUseCase(offset: event.offset);
+    result.fold(
+      (failure) => emit(HomeError(failure.message)),
+      (pokemons) => emit(HomeLoaded([...currentState.pokemons, ...pokemons])),
     );
   }
 }

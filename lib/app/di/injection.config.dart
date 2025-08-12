@@ -39,13 +39,13 @@ extension GetItInjectableX on _i174.GetIt {
     _i526.EnvironmentFilter? environmentFilter,
   }) async {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
-    final registerModule = _$RegisterModule();
     final hiveModule = _$HiveModule();
-    gh.lazySingleton<_i361.Dio>(() => registerModule.dio());
+    final registerModule = _$RegisterModule();
     await gh.lazySingletonAsync<_i919.Box<_i976.PokemonInfoModel>>(
       () => hiveModule.pokemonBox(),
       preResolve: true,
     );
+    gh.lazySingleton<_i361.Dio>(() => registerModule.dio());
     gh.lazySingleton<_i188.PokeApi>(
       () => registerModule.pokeApi(gh<_i361.Dio>()),
     );
@@ -71,6 +71,6 @@ extension GetItInjectableX on _i174.GetIt {
   }
 }
 
-class _$RegisterModule extends _i291.RegisterModule {}
-
 class _$HiveModule extends _i576.HiveModule {}
+
+class _$RegisterModule extends _i291.RegisterModule {}

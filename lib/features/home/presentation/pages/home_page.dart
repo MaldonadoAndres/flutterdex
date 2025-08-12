@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/app/di/injection.dart';
 import 'package:pokedex/features/home/presentation/bloc/home_bloc.dart';
-import 'package:pokedex/features/home/presentation/widgets/pokemon_card.dart';
+import 'package:pokedex/features/home/presentation/widgets/pokemon_grid.dart';
+import 'package:pokedex/features/home/presentation/widgets/pokemon_load_errror.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,6 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late final HomeBloc bloc;
+
   @override
   void initState() {
     super.initState();
@@ -23,40 +25,40 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: bloc,
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Pokedex'),
-          centerTitle: true,
-          backgroundColor: Colors.red,
-          foregroundColor: Colors.white,
-        ),
-        body: SafeArea(
-          minimum: const EdgeInsets.all(8.0),
-          child: BlocBuilder<HomeBloc, HomeState>(
-            builder: (context, state) {
-              return switch (state) {
-                HomeLoading() => const Center(
-                  child: CircularProgressIndicator(),
+      child: BlocBuilder<HomeBloc, HomeState>(
+        builder: (context, state) {
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text(
+                'FlutterDex',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              centerTitle: true,
+              backgroundColor: Colors.red,
+              foregroundColor: Colors.white,
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.favorite_outline),
+                  onPressed: () => {},
                 ),
-                HomeLoaded(:final pokemons) => GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 1.2,
-                  ),
-                  itemCount: pokemons.length,
-                  itemBuilder: (context, index) {
-                    final pokemon = pokemons[index];
-                    return PokemonCard(pokemon: pokemon);
-                  },
+              ],
+            ),
+            body: SafeArea(
+              minimum: const EdgeInsets.all(8.0),
+              child: switch (state) {
+                HomeLoading() => Center(
+                  child: CircularProgressIndicator.adaptive(),
                 ),
-                HomeError(message: final message) => Center(
-                  child: Text('Error: $message'),
+                HomeLoaded(:final pokemons) => PokemonGrid(pokemon: pokemons),
+                HomeError(message: final message) => PokemonLoadError(
+                  message: message,
+                  onRetry: () => bloc.add(HomeLoadPokemons()),
                 ),
-                _ => const Center(child: Text('Welcome to the Pokedex!!')),
-              };
-            },
-          ),
-        ),
+                _ => SizedBox.shrink(),
+              },
+            ),
+          );
+        },
       ),
     );
   }
