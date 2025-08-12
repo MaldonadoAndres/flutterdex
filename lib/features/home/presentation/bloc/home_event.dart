@@ -17,3 +17,12 @@ class HomeLoadMorePokemons extends HomeEvent {
   @override
   List<Object> get props => [offset];
 }
+
+class SearchPokemons extends HomeEvent {
+  final String query;
+
+  const SearchPokemons(this.query);
+
+  @override
+  List<Object> get props => [query];
+}

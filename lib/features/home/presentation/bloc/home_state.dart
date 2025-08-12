@@ -28,3 +28,12 @@ class HomeError extends HomeState {
   @override
   List<Object> get props => [message];
 }
+
+class HomeSearchError extends HomeState {
+  final String message;
+
+  const HomeSearchError(this.message);
+
+  @override
+  List<Object> get props => [message];
+}

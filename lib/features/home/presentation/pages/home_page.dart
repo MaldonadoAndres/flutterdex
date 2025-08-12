@@ -16,6 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late final HomeBloc bloc;
+  bool isSearching = false;
 
   @override
   void initState() {
@@ -31,19 +32,77 @@ class _HomePageState extends State<HomePage> {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              title: const Text(
-                'FlutterDex',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
+              title: !isSearching
+                  ? const Text(
+                      'FlutterDex',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  : TextField(
+                      onChanged: (value) {
+                        bloc.add(SearchPokemons(value));
+                      },
+                      decoration: InputDecoration(
+                        hintText: 'Search Pokémon',
+                        hintStyle: const TextStyle(
+                          fontSize: 18,
+                          color: Colors.white70,
+                        ),
+                        border: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        suffixIcon: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                bloc.add(SearchPokemons(''));
+                                setState(() {
+                                  isSearching = false;
+                                });
+                              },
+                              icon: const Icon(
+                                Icons.close,
+                                color: Colors.white70,
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.search,
+                                color: Colors.white70,
+                              ),
+                            ),
+                          ],
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16.0,
+                          vertical: 12.0,
+                        ),
+                      ),
+                      style: const TextStyle(fontSize: 18, color: Colors.white),
+                      textAlignVertical:
+                          TextAlignVertical.center, // Center hint vertically
+                    ),
               centerTitle: true,
               backgroundColor: Colors.red,
               foregroundColor: Colors.white,
-              actions: [
-                IconButton(
-                  icon: const Icon(Icons.favorite_outline),
-                  onPressed: () => {},
-                ),
-              ],
+              actions: !isSearching
+                  ? [
+                      IconButton(
+                        icon: const Icon(Icons.search),
+                        onPressed: () => setState(() {
+                          isSearching = true;
+                        }),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.favorite_outline),
+                        onPressed: () => {},
+                      ),
+                    ]
+                  : null,
             ),
             body: SafeArea(
               minimum: const EdgeInsets.all(8.0),
@@ -55,6 +114,20 @@ class _HomePageState extends State<HomePage> {
                 HomeError(message: final message) => PokemonLoadError(
                   message: message,
                   onRetry: () => bloc.add(HomeLoadPokemons()),
+                ),
+                HomeSearchError(message: final message) => Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: 8,
+                    children: [
+                      Icon(Icons.error, color: Colors.red, size: 48),
+                      Text(
+                        message,
+                        style: const TextStyle(color: Colors.red, fontSize: 24),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
                 ),
                 _ => SizedBox.shrink(),
               },
