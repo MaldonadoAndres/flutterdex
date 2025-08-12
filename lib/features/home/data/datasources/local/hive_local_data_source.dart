@@ -1,5 +1,33 @@
+import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
+import 'package:pokedex/core/error/exceptions.dart';
 import 'package:pokedex/features/home/data/datasources/local/local_data_source.dart';
+import 'package:pokedex/features/home/data/models/pokemon_info_model.dart';
 
 @LazySingleton(as: LocalDataSource)
-class HiveLocalDataSource implements LocalDataSource {}
+class HiveLocalDataSource implements LocalDataSource {
+  final Box<PokemonInfoModel> _pokemonBox;
+
+  HiveLocalDataSource(this._pokemonBox);
+
+  @override
+  Future<void> savePokemon(List<PokemonInfoModel> pokemon) async {
+    try {
+      await _pokemonBox.addAll(pokemon);
+    } on HiveError catch (e) {
+      Logger().e('Failed to save Pokemon: ${e.message}');
+      throw CacheException();
+    }
+  }
+
+  @override
+  Future<List<PokemonInfoModel>> getPokemon() async {
+    try {
+      return _pokemonBox.values.toList();
+    } on HiveError catch (e) {
+      Logger().e('Failed to get Pokemon: ${e.message}');
+      throw CacheException();
+    }
+  }
+}

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:logger/logger.dart';
 import 'package:pokedex/app/di/injection.dart';
 import 'package:pokedex/core/utils/string_extensions.dart';
 import 'package:pokedex/features/home/presentation/bloc/home_bloc.dart';
@@ -28,7 +27,6 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(title: const Text('Pokedex')),
         body: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
-            Logger().d('Current state: ${state.runtimeType}');
             return switch (state) {
               HomeLoading() => const Center(child: CircularProgressIndicator()),
               HomeLoaded(:final pokemons) => ListView.builder(

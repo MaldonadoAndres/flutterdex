@@ -1,10 +1,11 @@
+import 'package:hive_ce/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:pokedex/features/home/domain/entities/pokemon_info_entity.dart';
 
 part 'pokemon_info_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class PokemonInfoModel {
+class PokemonInfoModel with HiveObjectMixin {
   final int? id;
   final int? height;
   final int? weight;
@@ -28,10 +29,14 @@ class PokemonInfoModel {
       _$PokemonInfoModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$PokemonInfoModelToJson(this);
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  BoxBase? get box => super.box;
 }
 
 @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
-class PokemonSpritesModel {
+class PokemonSpritesModel with HiveObjectMixin {
   final String? backDefault;
   final String? backFemale;
   final String? backShiny;
@@ -55,10 +60,13 @@ class PokemonSpritesModel {
   factory PokemonSpritesModel.fromJson(Map<String, dynamic> json) =>
       _$PokemonSpritesModelFromJson(json);
   Map<String, dynamic> toJson() => _$PokemonSpritesModelToJson(this);
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  BoxBase? get box => super.box;
 }
 
 @JsonSerializable(createFactory: false)
-class PokemonStatsModel {
+class PokemonStatsModel with HiveObjectMixin {
   final int? hp;
   final int? attack;
   final int? defense;
@@ -75,6 +83,9 @@ class PokemonStatsModel {
     required this.specialDefense,
   });
   Map<String, dynamic> toJson() => _$PokemonStatsModelToJson(this);
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  BoxBase? get box => super.box;
 
   factory PokemonStatsModel.fromJson(List<dynamic> json) {
     final statMap = <String, int?>{};

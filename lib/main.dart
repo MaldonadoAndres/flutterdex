@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pokedex/app/di/injection.dart';
 import 'package:pokedex/features/home/presentation/pages/home_page.dart';
 
-void main() {
-  configureDependencies();
+void main() async {
+  await configureDependencies();
   runApp(const MyApp());
 }
 
@@ -14,7 +14,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple)),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      ),
       home: HomePage(),
     );
   }
