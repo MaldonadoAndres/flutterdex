@@ -23,7 +23,7 @@ types:
         index: 6
   PokemonSpritesModel:
     typeId: 4
-    nextIndex: 8
+    nextIndex: 9
     fields:
       backDefault:
         index: 0
@@ -41,6 +41,8 @@ types:
         index: 6
       frontShinyFemale:
         index: 7
+      officialArtwork:
+        index: 8
   PokemonStatsModel:
     typeId: 5
     nextIndex: 6

@@ -45,6 +45,8 @@ class PokemonSpritesModel with HiveObjectMixin {
   final String? frontFemale;
   final String? frontShiny;
   final String? frontShinyFemale;
+  @JsonKey(fromJson: _officialArtworkFromJson, name: 'other')
+  final String? officialArtwork;
 
   PokemonSpritesModel({
     this.backDefault,
@@ -55,14 +57,20 @@ class PokemonSpritesModel with HiveObjectMixin {
     this.frontFemale,
     this.frontShiny,
     this.frontShinyFemale,
+    this.officialArtwork,
   });
 
   factory PokemonSpritesModel.fromJson(Map<String, dynamic> json) =>
       _$PokemonSpritesModelFromJson(json);
   Map<String, dynamic> toJson() => _$PokemonSpritesModelToJson(this);
+
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   BoxBase? get box => super.box;
+
+  static String? _officialArtworkFromJson(Map<String, dynamic> json) {
+    return json['official-artwork']['front_default'] as String?;
+  }
 }
 
 @JsonSerializable(createFactory: false)

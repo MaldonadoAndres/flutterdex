@@ -10,6 +10,7 @@ extension PokemonModelToEntity on PokemonInfoModel {
       name: name ?? '',
       backSprite: sprites?.backDefault ?? '',
       frontSprite: sprites?.frontDefault ?? '',
+      officialArtwork: sprites?.officialArtwork ?? '',
       baseStats: stats?.toEntity() ?? PokemonStatsEntity.empty(),
       shortDescription: '',
       types: types ?? [],

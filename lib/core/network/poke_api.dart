@@ -11,7 +11,7 @@ abstract class PokeApi {
 
   @GET('pokemon')
   Future<PokemonListResponse> getPokemons({
-    @Query('limit') int limit = 10,
+    @Query('limit') int limit = 20,
     @Query('offset') int offset = 0,
   });
   @GET('pokemon/{pokemonName}')
