@@ -7,8 +7,8 @@ import 'package:pokedex/core/utils/string_extensions.dart';
 import 'package:pokedex/core/widgets/bordered_text.dart';
 import 'package:pokedex/core/widgets/pokemon_typing.dart';
 import 'package:pokedex/features/home/domain/entities/pokemon_info_entity.dart';
-import 'package:pokedex/features/home/presentation/bloc/pokemon_detail_bloc/pokemon_detail_bloc.dart';
-import 'package:pokedex/features/home/presentation/widgets/pokemon_stats.dart';
+import 'package:pokedex/features/home/presentation/pokemon_detail/bloc/pokemon_detail_bloc.dart';
+import 'package:pokedex/features/home/presentation/pokemon_detail/widgets/pokemon_stats.dart';
 
 @RoutePage()
 class PokemonDetailPage extends StatefulWidget {

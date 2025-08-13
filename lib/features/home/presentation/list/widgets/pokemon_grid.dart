@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/features/home/domain/entities/pokemon_info_entity.dart';
-import 'package:pokedex/features/home/presentation/bloc/home_bloc/home_bloc.dart';
-import 'package:pokedex/features/home/presentation/widgets/pokemon_card.dart';
+import 'package:pokedex/features/home/presentation/list/bloc/home_bloc.dart';
+import 'package:pokedex/features/home/presentation/list/widgets/pokemon_card.dart';
 
 class PokemonGrid extends StatefulWidget {
   const PokemonGrid({super.key, required this.pokemon});

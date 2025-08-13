@@ -13,8 +13,9 @@ import 'package:auto_route/auto_route.dart' as _i3;
 import 'package:flutter/material.dart' as _i4;
 import 'package:pokedex/features/home/domain/entities/pokemon_info_entity.dart'
     as _i5;
-import 'package:pokedex/features/home/presentation/pages/home_page.dart' as _i1;
-import 'package:pokedex/features/home/presentation/pages/pokemon_detail_page.dart'
+import 'package:pokedex/features/home/presentation/list/pages/home_page.dart'
+    as _i1;
+import 'package:pokedex/features/home/presentation/pokemon_detail/pages/pokemon_detail_page.dart'
     as _i2;
 
 /// generated route for

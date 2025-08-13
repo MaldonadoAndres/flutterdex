@@ -31,10 +31,9 @@ import '../../features/home/domain/repositories/i_pokemon_repository.dart'
 import '../../features/home/domain/usecases/favorite_pokemon_use_case.dart'
     as _i3;
 import '../../features/home/domain/usecases/get_pokemon_use_case.dart' as _i683;
-import '../../features/home/presentation/bloc/home_bloc/home_bloc.dart'
-    as _i771;
-import '../../features/home/presentation/bloc/pokemon_detail_bloc/pokemon_detail_bloc.dart'
-    as _i972;
+import '../../features/home/presentation/list/bloc/home_bloc.dart' as _i35;
+import '../../features/home/presentation/pokemon_detail/bloc/pokemon_detail_bloc.dart'
+    as _i694;
 import 'hive_module.dart' as _i576;
 import 'register_module.dart' as _i291;
 
@@ -73,12 +72,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i683.GetPokemonUseCase>(
       () => _i683.GetPokemonUseCase(repository: gh<_i236.IPokemonRepository>()),
     );
-    gh.factoryParam<_i972.PokemonDetailBloc, _i506.PokemonInfoEntity, dynamic>(
+    gh.factoryParam<_i694.PokemonDetailBloc, _i506.PokemonInfoEntity, dynamic>(
       (pokemon, _) =>
-          _i972.PokemonDetailBloc(gh<_i3.FavoritePokemonUseCase>(), pokemon),
+          _i694.PokemonDetailBloc(gh<_i3.FavoritePokemonUseCase>(), pokemon),
     );
-    gh.factory<_i771.HomeBloc>(
-      () => _i771.HomeBloc(gh<_i683.GetPokemonUseCase>()),
+    gh.factory<_i35.HomeBloc>(
+      () => _i35.HomeBloc(gh<_i683.GetPokemonUseCase>()),
     );
     return this;
   }

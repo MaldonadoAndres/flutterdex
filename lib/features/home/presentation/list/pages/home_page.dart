@@ -2,9 +2,9 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/app/di/injection.dart';
-import 'package:pokedex/features/home/presentation/bloc/home_bloc/home_bloc.dart';
-import 'package:pokedex/features/home/presentation/widgets/pokemon_grid.dart';
-import 'package:pokedex/features/home/presentation/widgets/pokemon_load_errror.dart';
+import 'package:pokedex/features/home/presentation/list/bloc/home_bloc.dart';
+import 'package:pokedex/features/home/presentation/list/widgets/pokemon_grid.dart';
+import 'package:pokedex/features/home/presentation/list/widgets/pokemon_load_errror.dart';
 
 @RoutePage()
 class HomePage extends StatefulWidget {
