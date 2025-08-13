@@ -25,10 +25,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(HomeLoading());
 
     final result = await _getPokemonUseCase();
-    result.fold((failure) => emit(HomeError(failure.message)), (pokemons) {
-      _pokemons.addAll(pokemons);
-      emit(HomeLoaded(pokemons));
-    });
+    result.fold(
+      (failure) {
+        emit(HomeError(failure.message));
+      },
+      (pokemons) {
+        _pokemons.addAll(pokemons);
+        emit(HomeLoaded(pokemons));
+      },
+    );
   }
 
   Future<void> _getMorePokemons(

@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
                     )
                   : TextField(
                       onChanged: (value) {
-                        bloc.add(SearchPokemons(value));
+                        context.read<HomeBloc>().add(SearchPokemons(value));
                       },
                       decoration: InputDecoration(
                         hintText: 'Search Pokémon',
@@ -58,7 +58,9 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             IconButton(
                               onPressed: () {
-                                bloc.add(const SearchPokemons(''));
+                                context.read<HomeBloc>().add(
+                                  const SearchPokemons(''),
+                                );
                                 setState(() {
                                   isSearching = false;
                                 });
@@ -113,7 +115,8 @@ class _HomePageState extends State<HomePage> {
                 HomeLoaded(:final pokemons) => PokemonGrid(pokemon: pokemons),
                 HomeError(message: final message) => PokemonLoadError(
                   message: message,
-                  onRetry: () => bloc.add(HomeLoadPokemons()),
+                  onRetry: () =>
+                      context.read<HomeBloc>().add(HomeLoadPokemons()),
                 ),
                 HomeSearchError(message: final message) => Center(
                   child: Column(
