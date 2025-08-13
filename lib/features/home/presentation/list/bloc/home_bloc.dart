@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
-import 'package:logger/logger.dart';
 import 'package:pokedex/core/utils/event_throttle.dart';
 import 'package:pokedex/features/home/domain/entities/pokemon_info_entity.dart';
 import 'package:pokedex/features/home/domain/usecases/get_pokemon_use_case.dart';
@@ -44,7 +43,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     HomeLoadMorePokemons event,
     Emitter<HomeState> emit,
   ) async {
-    Logger().d('Loading more pokemons with offset: ${_pokemons.length}');
     final result = await _getPokemonUseCase(offset: _pokemons.length);
     result.fold((failure) => emit(HomeError(failure.message)), (pokemons) {
       _pokemons.addAll(pokemons);

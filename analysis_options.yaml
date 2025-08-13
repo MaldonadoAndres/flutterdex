@@ -37,12 +37,10 @@ linter:
 # https://dart.dev/guides/language/analysis-options
 bloc:
   rules:
+    - avoid_build_context_extensions
     - avoid_flutter_imports
     - avoid_public_bloc_methods
-    - prefer_final_parameters
-    - prefer_const_constructors
-    - prefer_final_fields
-    - prefer_single_quotes
-    - prefer_typing_uninitialized_variables
-    - prefer_const_declarations
-    - prefer_final_locals
+    - avoid_public_fields
+    - prefer_bloc
+    - prefer_file_naming_conventions
+    - prefer_void_public_cubit_methods
