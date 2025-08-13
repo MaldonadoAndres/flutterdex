@@ -46,6 +46,10 @@ class _PokemonGridState extends State<PokemonGrid> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.pokemon.isEmpty) {
+      return const Center(child: Text('No Pokémon found.'));
+    }
+
     return GridView.builder(
       controller: _scrollController,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
