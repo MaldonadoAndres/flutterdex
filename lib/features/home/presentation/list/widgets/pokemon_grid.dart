@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/features/home/domain/entities/pokemon_info_entity.dart';
-import 'package:pokedex/features/home/presentation/list/bloc/home_bloc.dart';
 import 'package:pokedex/features/home/presentation/list/widgets/pokemon_card.dart';
 
 class PokemonGrid extends StatefulWidget {
-  const PokemonGrid({super.key, required this.pokemon, this.enableHero = true});
+  const PokemonGrid({
+    super.key,
+    required this.pokemon,
+    this.enableHero = true,
+    this.onLoadMore,
+  });
   final List<PokemonInfoEntity> pokemon;
   final bool enableHero;
+  final Function()? onLoadMore;
 
   @override
   State<PokemonGrid> createState() => _PokemonGridState();
@@ -19,15 +23,11 @@ class _PokemonGridState extends State<PokemonGrid> {
   @override
   void initState() {
     super.initState();
-    //TODO: Implement debouncer
     _scrollController = ScrollController();
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
+      if (_scrollController.position.pixels - 200 ==
           _scrollController.position.maxScrollExtent) {
-        final bloc = context.read<HomeBloc>();
-        if (bloc.state is! HomeLoaded) return;
-        final loadedState = bloc.state as HomeLoaded;
-        bloc.add(HomeLoadMorePokemons(loadedState.pokemons.length));
+        widget.onLoadMore?.call();
       }
     });
   }

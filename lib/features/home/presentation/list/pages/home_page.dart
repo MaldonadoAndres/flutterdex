@@ -46,7 +46,14 @@ class _HomePageState extends State<HomePage> {
                 HomeLoading() => const Center(
                   child: CircularProgressIndicator.adaptive(),
                 ),
-                HomeLoaded(:final pokemons) => PokemonGrid(pokemon: pokemons),
+                HomeLoaded(:final pokemons) => PokemonGrid(
+                  pokemon: pokemons,
+                  onLoadMore: () {
+                    context.read<HomeBloc>().add(
+                      HomeLoadMorePokemons(pokemons.length),
+                    );
+                  },
+                ),
                 HomeError(message: final message) => PokemonLoadError(
                   message: message,
                   onRetry: () =>
