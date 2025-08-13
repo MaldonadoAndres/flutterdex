@@ -14,7 +14,10 @@ class NetworkException implements Exception {}
 
 //Local Storage/Cache Exception
 
-class CacheException implements Exception {} // Failed reading from local DB
+class CacheException implements Exception {
+  String? message;
+  CacheException([this.message]);
+} // Failed reading from local DB
 
 class WriteCacheException implements Exception {} // Failed writing to local DB
 

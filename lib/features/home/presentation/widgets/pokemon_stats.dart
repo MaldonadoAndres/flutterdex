@@ -15,8 +15,8 @@ class PokemonStats extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          BorderedText(text: 'Base Stats', fontSize: 18),
-          SizedBox(height: 8),
+          const BorderedText(text: 'Base Stats', fontSize: 18),
+          const SizedBox(height: 8),
           _StatsRow(
             baseStat: pokemon.baseStats.hp,
             statName: 'HP',

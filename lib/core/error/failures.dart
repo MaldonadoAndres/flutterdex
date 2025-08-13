@@ -5,30 +5,30 @@ abstract interface class Failure {
 
 /// Generic failures
 class UnknownFailure extends Failure {
-  const UnknownFailure([super.message = "An unknown error occurred"]);
+  const UnknownFailure([super.message = 'An unknown error occurred']);
 }
 
 class ServerFailure extends Failure {
-  const ServerFailure([super.message = "Server error"]);
+  const ServerFailure([super.message = 'Server error']);
 }
 
 class NetworkFailure extends Failure {
-  const NetworkFailure([super.message = "No internet connection"]);
+  const NetworkFailure([super.message = 'No internet connection']);
 }
 
 class TimeoutFailure extends Failure {
-  const TimeoutFailure([super.message = "Request timed out"]);
+  const TimeoutFailure([super.message = 'Request timed out']);
 }
 
 class ParsingFailure extends Failure {
-  const ParsingFailure([super.message = "Data parsing error"]);
+  const ParsingFailure([super.message = 'Data parsing error']);
 }
 
 /// Data / Cache
 class CacheFailure extends Failure {
-  const CacheFailure([super.message = "Cache read/write error"]);
+  const CacheFailure([super.message = 'Cache read/write error']);
 }
 
 class NoDataFailure extends Failure {
-  const NoDataFailure([super.message = "No data found"]);
+  const NoDataFailure([super.message = 'No data found']);
 }

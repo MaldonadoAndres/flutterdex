@@ -14,6 +14,7 @@ extension PokemonModelToEntity on PokemonInfoModel {
       baseStats: stats?.toEntity() ?? PokemonStatsEntity.empty(),
       shortDescription: '',
       types: types ?? [],
+      isFavorite: isFavorite,
     );
   }
 }
@@ -27,6 +28,32 @@ extension PokemonStatsModelToEntity on PokemonStatsModel? {
       speed: this?.speed ?? -1,
       specialAttack: this?.specialAttack ?? -1,
       specialDefense: this?.specialDefense ?? -1,
+    );
+  }
+}
+
+extension PokemonInfoEntityExtention on PokemonInfoEntity {
+  PokemonInfoModel toModel() {
+    return PokemonInfoModel(
+      id: id,
+      height: height,
+      weight: weight,
+      name: name,
+      isFavorite: isFavorite,
+      sprites: PokemonSpritesModel(
+        backDefault: backSprite,
+        frontDefault: frontSprite,
+        officialArtwork: officialArtwork,
+      ),
+      stats: PokemonStatsModel(
+        hp: baseStats.hp,
+        attack: baseStats.attack,
+        defense: baseStats.defense,
+        speed: baseStats.speed,
+        specialAttack: baseStats.specialAttack,
+        specialDefense: baseStats.specialDefense,
+      ),
+      types: types,
     );
   }
 }

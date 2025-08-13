@@ -30,4 +30,20 @@ class HiveLocalDataSource implements LocalDataSource {
       throw CacheException();
     }
   }
+
+  @override
+  Future<void> updatePokemon(PokemonInfoModel pokemon) async {
+    try {
+      final index = _pokemonBox.values.toList().indexWhere(
+        (p) => p.id == pokemon.id,
+      );
+      if (index == 1) {
+        throw CacheException('Pokemon not found');
+      }
+      await _pokemonBox.putAt(index, pokemon);
+    } on HiveError catch (e) {
+      Logger().e('Failed to update Pokemon: ${e.message}');
+      throw CacheException();
+    }
+  }
 }

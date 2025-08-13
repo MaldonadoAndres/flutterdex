@@ -35,9 +35,9 @@ class PokemonRepository implements IPokemonRepository {
       await _localDataSource.savePokemon(pokemons);
       return Right(pokemons.map((e) => e.toEntity()).toList());
     } on ServerException {
-      return Left(ServerFailure());
+      return const Left(ServerFailure());
     } catch (e) {
-      return Left(UnknownFailure());
+      return const Left(UnknownFailure());
     }
   }
 
@@ -47,6 +47,16 @@ class PokemonRepository implements IPokemonRepository {
       return localPokemon.map((e) => e.toEntity()).toList();
     } catch (_) {
       return [];
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updatePokemon(PokemonInfoEntity pokemon) async {
+    try {
+      await _localDataSource.updatePokemon(pokemon.toModel());
+      return const Right(null);
+    } on CacheException catch (e) {
+      return Left(CacheFailure(e.message ?? 'Failed to update Pokemon'));
     }
   }
 }

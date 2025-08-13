@@ -15,6 +15,8 @@ class PokemonInfoModel with HiveObjectMixin {
   final PokemonStatsModel? stats;
   @JsonKey(fromJson: PokemonType.fromJsonList)
   final List<PokemonType>? types;
+  @JsonKey(includeFromJson: false)
+  final bool isFavorite;
 
   PokemonInfoModel({
     required this.id,
@@ -24,6 +26,7 @@ class PokemonInfoModel with HiveObjectMixin {
     required this.sprites,
     required this.stats,
     required this.types,
+    this.isFavorite = false,
   });
   factory PokemonInfoModel.fromJson(Map<String, dynamic> json) =>
       _$PokemonInfoModelFromJson(json);

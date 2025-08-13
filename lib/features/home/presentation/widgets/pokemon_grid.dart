@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/features/home/domain/entities/pokemon_info_entity.dart';
-import 'package:pokedex/features/home/presentation/bloc/home_bloc.dart';
+import 'package:pokedex/features/home/presentation/bloc/home_bloc/home_bloc.dart';
 import 'package:pokedex/features/home/presentation/widgets/pokemon_card.dart';
 
 class PokemonGrid extends StatefulWidget {
@@ -18,6 +18,7 @@ class _PokemonGridState extends State<PokemonGrid> {
   @override
   void initState() {
     super.initState();
+    //TODO: Implement debouncer
     _scrollController = ScrollController();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==

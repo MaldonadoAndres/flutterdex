@@ -2,7 +2,7 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/app/di/injection.dart';
-import 'package:pokedex/features/home/presentation/bloc/home_bloc.dart';
+import 'package:pokedex/features/home/presentation/bloc/home_bloc/home_bloc.dart';
 import 'package:pokedex/features/home/presentation/widgets/pokemon_grid.dart';
 import 'package:pokedex/features/home/presentation/widgets/pokemon_load_errror.dart';
 
@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             IconButton(
                               onPressed: () {
-                                bloc.add(SearchPokemons(''));
+                                bloc.add(const SearchPokemons(''));
                                 setState(() {
                                   isSearching = false;
                                 });
@@ -107,7 +107,7 @@ class _HomePageState extends State<HomePage> {
             body: SafeArea(
               minimum: const EdgeInsets.all(8.0),
               child: switch (state) {
-                HomeLoading() => Center(
+                HomeLoading() => const Center(
                   child: CircularProgressIndicator.adaptive(),
                 ),
                 HomeLoaded(:final pokemons) => PokemonGrid(pokemon: pokemons),
@@ -120,7 +120,7 @@ class _HomePageState extends State<HomePage> {
                     mainAxisSize: MainAxisSize.min,
                     spacing: 8,
                     children: [
-                      Icon(Icons.error, color: Colors.red, size: 48),
+                      const Icon(Icons.error, color: Colors.red, size: 48),
                       Text(
                         message,
                         style: const TextStyle(color: Colors.red, fontSize: 24),
@@ -129,7 +129,7 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-                _ => SizedBox.shrink(),
+                _ => const SizedBox.shrink(),
               },
             ),
           );

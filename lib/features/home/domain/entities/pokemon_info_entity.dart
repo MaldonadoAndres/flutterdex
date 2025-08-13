@@ -12,6 +12,7 @@ class PokemonInfoEntity extends Equatable {
   final String officialArtwork;
   final PokemonStatsEntity baseStats;
   final List<PokemonType> types;
+  final bool isFavorite;
 
   const PokemonInfoEntity({
     required this.id,
@@ -24,10 +25,39 @@ class PokemonInfoEntity extends Equatable {
     required this.officialArtwork,
     required this.baseStats,
     required this.types,
+    this.isFavorite = false,
   });
 
+  PokemonInfoEntity copyWith({
+    int? id,
+    int? height,
+    int? weight,
+    String? name,
+    String? shortDescription,
+    String? backSprite,
+    String? frontSprite,
+    String? officialArtwork,
+    PokemonStatsEntity? baseStats,
+    List<PokemonType>? types,
+    bool? isFavorite,
+  }) {
+    return PokemonInfoEntity(
+      id: id ?? this.id,
+      height: height ?? this.height,
+      weight: weight ?? this.weight,
+      name: name ?? this.name,
+      shortDescription: shortDescription ?? this.shortDescription,
+      backSprite: backSprite ?? this.backSprite,
+      frontSprite: frontSprite ?? this.frontSprite,
+      officialArtwork: officialArtwork ?? this.officialArtwork,
+      baseStats: baseStats ?? this.baseStats,
+      types: types ?? this.types,
+      isFavorite: isFavorite ?? this.isFavorite,
+    );
+  }
+
   @override
-  List<Object?> get props => [id];
+  List<Object?> get props => [id, isFavorite];
 }
 
 class PokemonStatsEntity extends Equatable {

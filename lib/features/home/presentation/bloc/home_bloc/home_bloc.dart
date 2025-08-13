@@ -15,8 +15,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<SearchPokemons>(_searchPokemons);
   }
   final GetPokemonUseCase _getPokemonUseCase;
-
   final List<PokemonInfoEntity> _pokemons = [];
+  bool _isLoadingMore = false;
 
   Future<void> _getPokemons(
     HomeLoadPokemons event,
@@ -36,12 +36,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) async {
     if (state is! HomeLoaded) return;
-
+    if (_isLoadingMore) return;
+    _isLoadingMore = true;
     final result = await _getPokemonUseCase(offset: event.offset);
     result.fold(
       (failure) => emit(HomeError(failure.message)),
       (pokemons) => emit(HomeLoaded([..._pokemons, ...pokemons])),
     );
+    _isLoadingMore = false;
   }
 
   Future<void> _searchPokemons(

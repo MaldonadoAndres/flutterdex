@@ -17,7 +17,7 @@ class PokemonLoadError extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         spacing: 8,
         children: [
-          Icon(Icons.error, color: Colors.red, size: 48),
+          const Icon(Icons.error, color: Colors.red, size: 48),
           Text(
             message,
             style: const TextStyle(color: Colors.red, fontSize: 24),
