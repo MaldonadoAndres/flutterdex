@@ -49,9 +49,7 @@ class _HomePageState extends State<HomePage> {
                 HomeLoaded(:final pokemons) => PokemonGrid(
                   pokemon: pokemons,
                   onLoadMore: () {
-                    context.read<HomeBloc>().add(
-                      HomeLoadMorePokemons(pokemons.length),
-                    );
+                    context.read<HomeBloc>().add(const HomeLoadMorePokemons());
                   },
                 ),
                 HomeError(message: final message) => PokemonLoadError(

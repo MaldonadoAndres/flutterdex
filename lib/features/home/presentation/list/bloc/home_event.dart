@@ -10,12 +10,10 @@ abstract class HomeEvent extends Equatable {
 class HomeLoadPokemons extends HomeEvent {}
 
 class HomeLoadMorePokemons extends HomeEvent {
-  final int offset;
-
-  const HomeLoadMorePokemons(this.offset);
+  const HomeLoadMorePokemons();
 
   @override
-  List<Object> get props => [offset];
+  List<Object> get props => [];
 }
 
 class SearchPokemons extends HomeEvent {

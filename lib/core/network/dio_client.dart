@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 Dio createDio() {
   final dio = Dio(
@@ -12,14 +11,14 @@ Dio createDio() {
 
   dio.interceptors.addAll([
     // LogInterceptor(requestBody: true, responseBody: true),
-    PrettyDioLogger(
-      request: true,
-      requestHeader: true,
-      responseHeader: true,
-      responseBody: false,
-      error: true,
-      compact: true,
-    ),
+    // PrettyDioLogger(
+    //   request: true,
+    //   requestHeader: true,
+    //   responseHeader: true,
+    //   responseBody: false,
+    //   error: true,
+    //   compact: true,
+    // ),
   ]);
   return dio;
 }

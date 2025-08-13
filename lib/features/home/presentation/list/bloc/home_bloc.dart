@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
+import 'package:pokedex/core/utils/event_throttle.dart';
 import 'package:pokedex/features/home/domain/entities/pokemon_info_entity.dart';
 import 'package:pokedex/features/home/domain/usecases/get_pokemon_use_case.dart';
 
@@ -11,12 +13,14 @@ part 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc(this._getPokemonUseCase) : super(HomeInitial()) {
     on<HomeLoadPokemons>(_getPokemons);
-    on<HomeLoadMorePokemons>(_getMorePokemons);
+    on<HomeLoadMorePokemons>(
+      _getMorePokemons,
+      transformer: throttleDroppable(throttleDuration),
+    );
     on<SearchPokemons>(_searchPokemons);
   }
   final GetPokemonUseCase _getPokemonUseCase;
   final List<PokemonInfoEntity> _pokemons = [];
-  bool _isLoadingMore = false;
 
   Future<void> _getPokemons(
     HomeLoadPokemons event,
@@ -31,7 +35,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       },
       (pokemons) {
         _pokemons.addAll(pokemons);
-        emit(HomeLoaded(pokemons));
+        emit(HomeLoaded(_pokemons));
       },
     );
   }
@@ -40,15 +44,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     HomeLoadMorePokemons event,
     Emitter<HomeState> emit,
   ) async {
-    if (state is! HomeLoaded) return;
-    if (_isLoadingMore) return;
-    _isLoadingMore = true;
-    final result = await _getPokemonUseCase(offset: event.offset);
-    result.fold(
-      (failure) => emit(HomeError(failure.message)),
-      (pokemons) => emit(HomeLoaded([..._pokemons, ...pokemons])),
-    );
-    _isLoadingMore = false;
+    Logger().d('Loading more pokemons with offset: ${_pokemons.length}');
+    final result = await _getPokemonUseCase(offset: _pokemons.length);
+    result.fold((failure) => emit(HomeError(failure.message)), (pokemons) {
+      _pokemons.addAll(pokemons);
+      emit(HomeLoaded([..._pokemons, ...pokemons]));
+    });
   }
 
   Future<void> _searchPokemons(
