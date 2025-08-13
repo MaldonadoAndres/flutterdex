@@ -5,8 +5,9 @@ import 'package:pokedex/features/home/presentation/list/bloc/home_bloc.dart';
 import 'package:pokedex/features/home/presentation/list/widgets/pokemon_card.dart';
 
 class PokemonGrid extends StatefulWidget {
-  const PokemonGrid({super.key, required this.pokemon});
+  const PokemonGrid({super.key, required this.pokemon, this.enableHero = true});
   final List<PokemonInfoEntity> pokemon;
+  final bool enableHero;
 
   @override
   State<PokemonGrid> createState() => _PokemonGridState();
@@ -48,7 +49,7 @@ class _PokemonGridState extends State<PokemonGrid> {
       itemCount: widget.pokemon.length,
       itemBuilder: (context, index) {
         final pokemon = widget.pokemon[index];
-        return PokemonCard(pokemon: pokemon);
+        return PokemonCard(pokemon: pokemon, enableHero: widget.enableHero);
       },
     );
   }

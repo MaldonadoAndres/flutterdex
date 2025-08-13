@@ -7,8 +7,9 @@ import 'package:pokedex/core/widgets/pokemon_typing.dart';
 import 'package:pokedex/features/home/domain/entities/pokemon_info_entity.dart';
 
 class PokemonCard extends StatelessWidget {
-  const PokemonCard({super.key, required this.pokemon});
+  const PokemonCard({super.key, required this.pokemon, this.enableHero = true});
   final PokemonInfoEntity pokemon;
+  final bool enableHero;
 
   @override
   Widget build(BuildContext context) {
@@ -42,14 +43,20 @@ class PokemonCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Expanded(child: PokemonTyping(pokemon: pokemon)),
-                    Hero(
-                      tag: pokemon.id,
-                      child: CachedNetworkImage(
-                        imageUrl: pokemon.officialArtwork,
-                        height: 100.0,
-                        width: 100.0,
-                      ),
-                    ),
+                    enableHero
+                        ? Hero(
+                            tag: pokemon.id,
+                            child: CachedNetworkImage(
+                              imageUrl: pokemon.officialArtwork,
+                              height: 100.0,
+                              width: 100.0,
+                            ),
+                          )
+                        : CachedNetworkImage(
+                            imageUrl: pokemon.officialArtwork,
+                            height: 100.0,
+                            width: 100.0,
+                          ),
                   ],
                 ),
               ),

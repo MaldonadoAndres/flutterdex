@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/app/di/injection.dart';
 import 'package:pokedex/features/home/presentation/list/bloc/home_bloc.dart';
+import 'package:pokedex/features/home/presentation/list/widgets/home_app_bar.dart';
 import 'package:pokedex/features/home/presentation/list/widgets/pokemon_grid.dart';
 import 'package:pokedex/features/home/presentation/list/widgets/pokemon_load_errror.dart';
 
@@ -31,80 +32,13 @@ class _HomePageState extends State<HomePage> {
       child: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
           return Scaffold(
-            appBar: AppBar(
-              title: !isSearching
-                  ? const Text(
-                      'FlutterDex',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )
-                  : TextField(
-                      onChanged: (value) {
-                        context.read<HomeBloc>().add(SearchPokemons(value));
-                      },
-                      decoration: InputDecoration(
-                        hintText: 'Search Pokémon',
-                        hintStyle: const TextStyle(
-                          fontSize: 18,
-                          color: Colors.white70,
-                        ),
-                        border: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        suffixIcon: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                context.read<HomeBloc>().add(
-                                  const SearchPokemons(''),
-                                );
-                                setState(() {
-                                  isSearching = false;
-                                });
-                              },
-                              icon: const Icon(
-                                Icons.close,
-                                color: Colors.white70,
-                              ),
-                            ),
-                            IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.search,
-                                color: Colors.white70,
-                              ),
-                            ),
-                          ],
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 16.0,
-                          vertical: 12.0,
-                        ),
-                      ),
-                      style: const TextStyle(fontSize: 18, color: Colors.white),
-                      textAlignVertical:
-                          TextAlignVertical.center, // Center hint vertically
-                    ),
-              centerTitle: true,
-              backgroundColor: Colors.red,
-              foregroundColor: Colors.white,
-              actions: !isSearching
-                  ? [
-                      IconButton(
-                        icon: const Icon(Icons.search),
-                        onPressed: () => setState(() {
-                          isSearching = true;
-                        }),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.favorite_outline),
-                        onPressed: () => {},
-                      ),
-                    ]
-                  : null,
+            appBar: HomeAppBar(
+              onSearch: (query) {
+                context.read<HomeBloc>().add(SearchPokemons(query));
+              },
+              onCancelSearch: () {
+                context.read<HomeBloc>().add(const SearchPokemons(''));
+              },
             ),
             body: SafeArea(
               minimum: const EdgeInsets.all(8.0),

@@ -7,4 +7,5 @@ abstract interface class IPokemonRepository {
     int offset = 0,
   });
   Future<Either<Failure, void>> updatePokemon(PokemonInfoEntity pokemon);
+  Future<Either<Failure, List<PokemonInfoEntity>>> getFavoritePokemons();
 }

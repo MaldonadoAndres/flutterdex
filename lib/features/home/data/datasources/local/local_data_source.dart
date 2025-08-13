@@ -4,4 +4,5 @@ abstract interface class LocalDataSource {
   Future<void> savePokemon(List<PokemonInfoModel> pokemon);
   Future<List<PokemonInfoModel>> getPokemon();
   Future<void> updatePokemon(PokemonInfoModel pokemon);
+  Future<List<PokemonInfoModel>> getFavoritesPokemon();
 }

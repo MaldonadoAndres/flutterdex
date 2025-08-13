@@ -59,4 +59,14 @@ class PokemonRepository implements IPokemonRepository {
       return Left(CacheFailure(e.message ?? 'Failed to update Pokemon'));
     }
   }
+
+  @override
+  Future<Either<Failure, List<PokemonInfoEntity>>> getFavoritePokemons() async {
+    try {
+      final favorites = await _localDataSource.getFavoritesPokemon();
+      return Right(favorites.map((e) => e.toEntity()).toList());
+    } on CacheException catch (e) {
+      return Left(CacheFailure(e.message ?? 'Failed to get favorite Pokemon'));
+    }
+  }
 }

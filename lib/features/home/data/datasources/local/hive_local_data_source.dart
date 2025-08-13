@@ -37,12 +37,22 @@ class HiveLocalDataSource implements LocalDataSource {
       final index = _pokemonBox.values.toList().indexWhere(
         (p) => p.id == pokemon.id,
       );
-      if (index == 1) {
+      if (index == -1) {
         throw CacheException('Pokemon not found');
       }
       await _pokemonBox.putAt(index, pokemon);
     } on HiveError catch (e) {
       Logger().e('Failed to update Pokemon: ${e.message}');
+      throw CacheException();
+    }
+  }
+
+  @override
+  Future<List<PokemonInfoModel>> getFavoritesPokemon() async {
+    try {
+      return _pokemonBox.values.where((pokemon) => pokemon.isFavorite).toList();
+    } on HiveError catch (e) {
+      Logger().e('Failed to get favorite Pokemon: ${e.message}');
       throw CacheException();
     }
   }
