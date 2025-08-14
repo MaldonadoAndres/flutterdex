@@ -8,3 +8,11 @@ sealed class FavoritesEvent extends Equatable {
 }
 
 class LoadFavorites extends FavoritesEvent {}
+
+class FilteredFavorites extends FavoritesEvent {
+  const FilteredFavorites(this.query);
+  final String query;
+
+  @override
+  List<Object> get props => [query];
+}

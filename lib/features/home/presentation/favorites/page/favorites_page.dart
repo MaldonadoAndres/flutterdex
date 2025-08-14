@@ -27,26 +27,38 @@ class _FavoritesPageState extends State<FavoritesPage> {
   Widget build(BuildContext context) {
     return BlocProvider<FavoritesBloc>.value(
       value: _favoritesBloc,
-      child: Scaffold(
-        appBar: HomeAppBar(onSearch: (_) {}, onCancelSearch: () {}),
-        body: SafeArea(
-          child: BlocBuilder<FavoritesBloc, FavoritesState>(
-            builder: (context, state) {
-              return switch (state) {
-                FavoritesLoading() => const Center(
-                  child: CircularProgressIndicator(),
-                ),
-                FavoritesLoaded(:final favorites) => PokemonGrid(
-                  pokemon: favorites,
-                  enableHero: false,
-                ),
-                FavoritesError(message: final message) => Center(
-                  child: Text(message),
-                ),
-              };
-            },
-          ),
-        ),
+      child: Builder(
+        builder: (context) {
+          return Scaffold(
+            appBar: HomeAppBar(
+              title: 'Favorites',
+              onSearch: (query) =>
+                  context.read<FavoritesBloc>().add(FilteredFavorites(query)),
+              onCancelSearch: () => context.read<FavoritesBloc>().add(
+                const FilteredFavorites(''),
+              ),
+              showFavorites: false,
+            ),
+            body: SafeArea(
+              child: BlocBuilder<FavoritesBloc, FavoritesState>(
+                builder: (context, state) {
+                  return switch (state) {
+                    FavoritesLoading() => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    FavoritesLoaded(:final favorites) => PokemonGrid(
+                      pokemon: favorites,
+                      enableHero: false,
+                    ),
+                    FavoritesError(message: final message) => Center(
+                      child: Text(message),
+                    ),
+                  };
+                },
+              ),
+            ),
+          );
+        },
       ),
     );
   }

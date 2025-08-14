@@ -14,6 +14,7 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
 
   FavoritesBloc(this._getFavoritesPokemonUseCase) : super(FavoritesLoading()) {
     on<LoadFavorites>(_onLoadFavorites);
+    on<FilteredFavorites>(_onFilteredFavorites);
   }
   void _onLoadFavorites(
     LoadFavorites event,
@@ -26,5 +27,27 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
       _favorites.addAll(favorites);
       emit(FavoritesLoaded(favorites: _favorites));
     });
+  }
+
+  void _onFilteredFavorites(
+    FilteredFavorites event,
+    Emitter<FavoritesState> emit,
+  ) {
+    if (event.query.trim().isEmpty) {
+      emit(FavoritesLoaded(favorites: _favorites));
+      return;
+    }
+    final filteredPokemons = _favorites
+        .where(
+          (pokemon) =>
+              pokemon.name.toLowerCase().contains(event.query.toLowerCase()),
+        )
+        .toList();
+
+    if (filteredPokemons.isEmpty) {
+      emit(FavoritesError('No Pokémon found for "${event.query}"'));
+    } else {
+      emit(FavoritesLoaded(favorites: filteredPokemons));
+    }
   }
 }

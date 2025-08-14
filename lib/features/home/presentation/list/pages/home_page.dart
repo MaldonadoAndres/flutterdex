@@ -33,6 +33,7 @@ class _HomePageState extends State<HomePage> {
         builder: (context, state) {
           return Scaffold(
             appBar: HomeAppBar(
+              title: 'FlutterDex',
               onSearch: (query) {
                 context.read<HomeBloc>().add(SearchPokemons(query));
               },

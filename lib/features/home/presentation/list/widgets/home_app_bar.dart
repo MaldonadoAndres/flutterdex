@@ -4,11 +4,15 @@ import 'package:pokedex/app/router/pokemon_router.gr.dart';
 class HomeAppBar extends StatefulWidget implements PreferredSizeWidget {
   const HomeAppBar({
     super.key,
+    required this.title,
     required this.onSearch,
     required this.onCancelSearch,
+    this.showFavorites = true,
   });
   final Function(String) onSearch;
   final Function() onCancelSearch;
+  final bool showFavorites;
+  final String title;
 
   @override
   State<HomeAppBar> createState() => _HomeAppBarState();
@@ -23,9 +27,9 @@ class _HomeAppBarState extends State<HomeAppBar> {
   Widget build(BuildContext context) {
     return AppBar(
       title: !isSearching
-          ? const Text(
-              'FlutterDex',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ? Text(
+              widget.title,
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             )
           : TextField(
               onChanged: (value) {
@@ -70,10 +74,11 @@ class _HomeAppBarState extends State<HomeAppBar> {
                   isSearching = true;
                 }),
               ),
-              IconButton(
-                icon: const Icon(Icons.favorite_outline),
-                onPressed: () => const FavoritesRoute().push(context),
-              ),
+              if (widget.showFavorites)
+                IconButton(
+                  icon: const Icon(Icons.favorite_outline),
+                  onPressed: () => const FavoritesRoute().push(context),
+                ),
             ]
           : null,
     );
