@@ -50,13 +50,13 @@ The call flow moves from UI to logic, to use cases, repositories, and finally to
 
 ### Demo & Screenshots
 
-![Demo Image](md_assets/img_demo.png){width="300"}
+![Demo Image](md_assets/img_demo.png)
 
 #### Demo Video
 
 <details>
 <summary>Click to view demo</summary>
-<video src="md_assets/demo.mp4" controls width="400"></video>
+<video src="https://github.com/user-attachments/assets/97622dcb-2e56-4554-a95f-aed55ecd7ea2" controls width="400"></video>
 </details>
 
 ---
