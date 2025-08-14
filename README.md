@@ -1,16 +1,64 @@
-# pokedex
+# FlutterDex
 
-A new Flutter project.
+FlutterDex is a small, intentionally overengineered project designed to showcase how I would approach structuring and building a real-world Flutter application. The main goal is to demonstrate best practices, clean architecture, and scalable code organization, rather than simply delivering a minimal solution. This repository serves as a reference for tackling larger, production-ready projects using Flutter.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Prerequisites
 
-A few resources to get you started if this is your first Flutter project:
+- [Flutter SDK](https://docs.flutter.dev/get-started/install)
+- Dart 3.8+
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Setup
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Install dependencies:
+
+   ```sh
+   flutter pub get
+   ```
+
+2. Generate code (required for assets, json_serializable, etc):
+
+   ```sh
+   dart run build_runner build -d
+   ```
+
+3. Run the app:
+   ```sh
+   flutter run
+   ```
+
+## Project Structure
+
+This project follows a clean architecture approach, as illustrated below:
+
+![Demo Image](/md_assets//project_structure.png)
+<br/>
+
+---
+
+<br/>
+
+- **Presentation**: Contains UI widgets and presentation logic holders (e.g., BLoC, ChangeNotifier).
+- **Domain**: Contains use cases and entities, representing the business logic.
+- **Data**: Handles data sources (remote APIs, local databases, etc.) and models.
+- **Repositories**: Bridge between domain and data layers, providing data to use cases.
+
+The call flow moves from UI to logic, to use cases, repositories, and finally to data sources (remote/local).
+
+---
+
+### Demo & Screenshots
+
+![Demo Image](md_assets/img_demo.png){width="300"}
+
+#### Demo Video
+
+<details>
+<summary>Click to view demo</summary>
+<video src="md_assets/demo.mp4" controls width="400"></video>
+</details>
+
+---
+
+For more help with Flutter development, see the [online documentation](https://docs.flutter.dev/).
