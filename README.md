@@ -33,6 +33,7 @@ FlutterDex is a small, intentionally overengineered project designed to showcase
 This project follows a clean architecture approach, as illustrated below:
 
 ![Demo Image](/md_assets//project_structure.png)
+
 <br/>
 
 ---
@@ -49,8 +50,8 @@ The call flow moves from UI to logic, to use cases, repositories, and finally to
 ---
 
 ### Demo & Screenshots
+<img src="md_assets/img_demo.png" alt="Demo Image" width="300" />
 
-![Demo Image](md_assets/img_demo.png)
 
 #### Demo Video
 
