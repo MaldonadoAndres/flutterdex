@@ -35,10 +35,10 @@ class _HomePageState extends State<HomePage> {
             appBar: HomeAppBar(
               title: 'FlutterDex',
               onSearch: (query) {
-                context.read<HomeBloc>().add(SearchPokemons(query));
+                bloc.add(SearchPokemons(query));
               },
               onCancelSearch: () {
-                context.read<HomeBloc>().add(const SearchPokemons(''));
+                bloc.add(const SearchPokemons(''));
               },
             ),
             body: SafeArea(
@@ -50,13 +50,12 @@ class _HomePageState extends State<HomePage> {
                 HomeLoaded(:final pokemons) => PokemonGrid(
                   pokemon: pokemons,
                   onLoadMore: () {
-                    context.read<HomeBloc>().add(const HomeLoadMorePokemons());
+                    bloc.add(const HomeLoadMorePokemons());
                   },
                 ),
                 HomeError(message: final message) => PokemonLoadError(
                   message: message,
-                  onRetry: () =>
-                      context.read<HomeBloc>().add(HomeLoadPokemons()),
+                  onRetry: () => bloc.add(HomeLoadPokemons()),
                 ),
                 HomeSearchError(message: final message) => Center(
                   child: Column(
