@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pokedex/app/di/injection.dart';
 import 'package:pokedex/app/router/pokemon_router.dart';
 
+//Comentario
 void main() async {
   await configureDependencies();
   runApp(MyApp());
